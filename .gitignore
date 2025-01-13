@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
+venv/
+*.egg-info
+
+# Data files
+data/market_data.csv
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Node.js
+node_modules/
+
+models/anomaly_detection_model.pkl
