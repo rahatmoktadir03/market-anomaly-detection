@@ -77,6 +77,17 @@ if label_column_name not in data.columns:
 x = data.drop(columns=[label_column_name])  # All columns except the label
 y = data[label_column_name]  # The target column
 
+# Try selecting a few features to train the model to improve accuracy by seeing which features 
+# are most important for prediction
+importances = model.feature_importances_
+feature_importances = pd.DataFrame({
+    'Feature': X_train.columns
+    'Importance': importances
+})
+sorted_importances = feature_importances.sort_values(by='Importance', ascending=False)
+print(sorted_importances)
+
+
 # Display shapes and sample data
 print("Features shape:", x.shape)
 print("Labels shape:", y.shape)
@@ -111,7 +122,7 @@ for col in X.select_dtypes(include=['object']).columns:
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize Random Forest Classifier
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+model = RandomForestClassifier(class_weight='balanced', n_estimators=100, random_state=42)
 
 # Train the model
 model.fit(X_train, y_train)
